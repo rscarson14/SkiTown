@@ -57,7 +57,9 @@ TownViewWidget::TownViewWidget(int x, int y, int w, int h,
   Fl::add_idle(tvIdler,this);
   followCamera = new FollowCam();
   interestingCamera = new InterestingCam();
-  glewEnabled = false;
+
+
+
 }
   
 unsigned long lastDrawDone = 0;
@@ -66,10 +68,7 @@ void TownViewWidget::draw()
 {
   // figure out how to draw
 
-	if (!glewEnabled) {
-		glewInit();
-		glewEnabled = true;
-	}
+
 
   DrawingState drst;
   getStateFromUI(&drst);

@@ -46,7 +46,7 @@ class TownViewWidget : public Fl_Gl_Window
  private:
   virtual void draw();
   virtual int handle(int);
-  bool glewEnabled; 
+
 };
 
 // $Header: /p/course/cs559-gleicher/private/CVS/GrTown/TownViewWidget.H,v 1.2 2007/11/01 21:25:20 gleicher Exp $
