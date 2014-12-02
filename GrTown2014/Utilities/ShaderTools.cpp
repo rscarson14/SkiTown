@@ -11,37 +11,42 @@
 
 #include <GL/glew.h>
 
-
-
 #include "ShaderTools.H"
 #include "stdlib.h"
 #include "stdio.h"
 
 #include <fstream>
+#include <sstream>
 
 using std::ifstream;
 using std::string;
 using std::vector;
+using std::stringstream;
+
 
 vector<string> shaderPaths;
 
 // read in a file once you have the file name - called from the real routine
 // that searches in a path
-static bool readShaderFileI(const char* filename, std::vector<std::string>& program)
+static bool readShaderFileI(const char* filename, stringstream *program)
 {
 
-	program.clear();
     ifstream inFile(filename);
 	if (! inFile.good()) return false; 
-    string temp;
-    while (getline(inFile, temp)) {
-        program.push_back(temp);
-    }
+    
+	*program << inFile.rdbuf();
+
+	inFile.close();
+	//string temp;
+    //while (getline(inFile, temp)) {
+		//temp.append("\n\0");
+        //program.push_back(temp);
+    //}
 	return true;
 }
 
 // look for a shader file in the shaderPaths (try no path first)
-bool readShaderFile(const char* filename, std::vector<std::string>& program)
+bool readShaderFile(const char* filename, stringstream *program)
 {
 	// try no path first
 	if (readShaderFileI(filename,program)) return true;
@@ -119,25 +124,28 @@ GLuint loadShader(const char* vertexFileName, const char* fragmentFileName, char
 	GLuint fragment	    = glCreateShader(GL_FRAGMENT_SHADER_ARB);
 
 	// read shaders into strings
-	vector<string> vertexStrings;
-	readShaderFile(vertexFileName,vertexStrings);
-	if (vertexStrings.empty()) {
-		error = "Couldn't open vertex program file!";
+	//vector<string> vertexStrings;
+	stringstream vertData;
+	if (!readShaderFile(vertexFileName, &vertData))
+	{
+		error = "Couldn't open vertex shader file!";
 		return 0;
 	}
-	vector<string> fragmentStrings;
-	readShaderFile(fragmentFileName,fragmentStrings);
-	if (fragmentStrings.empty()) {
-		error="Couldn't open fragment program file!";
+	
+	stringstream fragData;
+	if (!readShaderFile(fragmentFileName, &fragData))
+	{
+		error = "Could not open fragment shader file!";
 		return 0;
 	}
 
 	// for reasons I don't understand, this program barfs if there is
 	// a C++ style comment - they're easy enough to get rid of
-	ridCPPcomments(vertexStrings);
-	ridCPPcomments(fragmentStrings);
+	//ridCPPcomments(vertexStrings);
+	//ridCPPcomments(fragmentStrings);
 
 	// need to convert C++ strings to C strings
+	/*
 	vector<const char*> vertexStringsC;
 	vector<const char*> fragmentStringsC;
 
@@ -146,28 +154,45 @@ GLuint loadShader(const char* vertexFileName, const char* fragmentFileName, char
 
 	for(size_t i=0; i<fragmentStrings.size(); i++)
 		fragmentStringsC.push_back(fragmentStrings[i].c_str());
-
+	*/
 	// give ogl the shader source string
 
+	const string &vertString = vertData.str();
+	const char *vertShader_c = vertString.c_str();
+	GLuint vertShaderLen = vertString.size();
+
 	// compile shaders
-	glShaderSource(vertex,   (GLsizei) vertexStringsC.size(),   &(vertexStringsC[0]), NULL);
+	glShaderSource(	vertex,   
+					1,   
+					(const GLchar**) &vertShader_c, 
+					(GLint*) &vertShaderLen);
+
 	glCompileShader(vertex);
 	if (checkShaderError(vertex)) {
 		error = "Could not compile vertex program";
 
-		for(size_t i=0; i<fragmentStringsC.size(); i++)
-			printf("%02d: %s\n",i,fragmentStringsC[i]);
+		//for(size_t i=0; i<fragmentStringsC.size(); i++)
+		printf("%s\n",vertShader_c);
 
 		return 0;
 	}
 
-	glShaderSource(fragment, (GLsizei) fragmentStringsC.size(), &(fragmentStringsC[0]), NULL);
+	const string &fragString = fragData.str();
+	const char *fragShader_c = fragString.c_str();
+	GLuint fragShaderLen = fragString.size();
+
+	// compile shaders
+	glShaderSource(	fragment,
+					1,
+					(const GLchar**) &fragShader_c,
+					(GLint*) &fragShaderLen);
+
 	glCompileShader(fragment);
 	if (checkShaderError(fragment)) {
 		error = "Could not compile fragment program";
 
-		for(size_t i=0; i<fragmentStringsC.size(); i++)
-			printf("%02d: %s\n",i,fragmentStringsC[i]);
+		//for(size_t i=0; i<fragmentStringsC.size(); i++)
+		printf("%s\n",fragShader_c);
 
 		return 0;
 	}

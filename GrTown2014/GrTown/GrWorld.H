@@ -7,17 +7,20 @@
 // updated Fall, 2008 - convert from linked lists to vectors
 #include <vector>
 
+#include "Skycube.h"
+
 //
 // "the world" - framework for stuff to go into
 //
 class DrawingState;
 class GrObject;
 
+
 // the sky and "earth" are special objects, so we draw them
 // differently - they are not GrObjects. 
 // they always get drawn before all other objects
 // draw sky gets called first, and is responsible for doing the clear
-// 
+//
 void drawSky(DrawingState*);
 void drawEarth(DrawingState*);
 

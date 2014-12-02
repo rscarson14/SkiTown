@@ -134,6 +134,7 @@
     <ClInclude Include="GrObject.H" />
     <ClInclude Include="GrTown_PCH.H" />
     <ClInclude Include="GrWorld.H" />
+    <ClInclude Include="Skycube.h" />
     <ClInclude Include="MMatrix.H" />
     <ClInclude Include="Roads\Drive.H" />
     <ClInclude Include="Roads\Roads.H" />
@@ -158,6 +159,7 @@
     <ClCompile Include="MMatrix.cpp" />
     <ClCompile Include="Roads\Drive.cpp" />
     <ClCompile Include="Roads\Roads.cpp" />
+    <ClCompile Include="Skycube.cpp" />
     <ClCompile Include="TownViewWidget.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

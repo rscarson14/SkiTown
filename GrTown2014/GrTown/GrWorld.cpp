@@ -21,6 +21,7 @@ vector<GrObject*> theObjects;
 // more nicely
 void drawSky(DrawingState* st)
 {
+	glewInit();
   // figure out the sky color...
   if (st->timeOfDay < 5) st->sky(0,0,.2f);
   else if (st->timeOfDay < 8) st->sky(.2f,.2f,.8f);
@@ -30,6 +31,7 @@ void drawSky(DrawingState* st)
 
   glClearColor(st->sky.r,st->sky.g,st->sky.b,st->sky.a);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT /*| GL_STENCIL_BUFFER_BIT*/);
+  
 }
 
 // for now, just draw a huge green square. 10 miles on a side (5000

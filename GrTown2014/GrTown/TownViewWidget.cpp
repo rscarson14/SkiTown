@@ -2,6 +2,8 @@
 // written by Michael Gleicher - originally written Fall, 2000
 // updated Fall, 2005
 
+#include "GL/glew.h"
+
 #include "GrTown_PCH.H"
 
 #include "TownViewWidget.H"
@@ -13,6 +15,7 @@
 #include "Utilities/Texture.H"
 #include <time.h>
 #include "FlyCamera.H"
+#include "Skycube.h"
 
 #include <iostream>
 
@@ -57,10 +60,9 @@ TownViewWidget::TownViewWidget(int x, int y, int w, int h,
   Fl::add_idle(tvIdler,this);
   followCamera = new FollowCam();
   interestingCamera = new InterestingCam();
-
-
-
+  mSkycube = new Skycube();
 }
+
   
 unsigned long lastDrawDone = 0;
 
@@ -114,6 +116,7 @@ void TownViewWidget::draw()
   // the actual clearing goes on in the sky routine since its the only
   // thing that knows what color to make the sky
   drawSky(&drst);
+ mSkycube->draw(&drst);
   drawEarth(&drst);
 
   //  GrObject* g;

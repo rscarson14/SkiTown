@@ -43,6 +43,15 @@
     <Filter Include="Utilities\Source">
       <UniqueIdentifier>{9b6a38e2-795c-4654-ab32-9639d4cf6ae9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Added Objects">
+      <UniqueIdentifier>{b9272149-83f0-4ce1-baae-9b09a8a254d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Added Objects\Headers">
+      <UniqueIdentifier>{3bcc4c1e-cbd1-48fb-9d87-5fbe1ef6fa44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Added Objects\Source">
+      <UniqueIdentifier>{5f830b8c-d25b-4d34-833f-f7a599d88b12}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Examples\Cars.H">
@@ -102,6 +111,9 @@
     <ClInclude Include="..\Utilities\Texture.H">
       <Filter>Utilities\Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Skycube.h">
+      <Filter>Added Objects\Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Examples\Cars.cpp">
@@ -160,6 +172,9 @@
     </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Engine Core\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Skycube.cpp">
+      <Filter>Added Objects\Source</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
