@@ -11,6 +11,7 @@
 
 #include "Fl/Fl_Gl_Window.H"
 #include "Skycube.h"
+#include "Cabin.h"
 
 class GraphicsTownUI;
 class DrawingState;
@@ -37,6 +38,7 @@ class TownViewWidget : public Fl_Gl_Window
   InterestingCam* interestingCamera;
 
   Skycube* mSkycube;
+  Cabin *mCabin;
 
   // point the defaultCamera at an object that is interesting
   void lookat(GrObject*);

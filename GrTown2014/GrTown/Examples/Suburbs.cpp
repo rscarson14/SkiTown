@@ -199,7 +199,7 @@ void Church::draw(DrawingState*)
   int top = 65;
 
   glColor3fv(&color.r);
-  fetchTexture("church-front.png");
+  fetchTexture("wood_texture.png");
   glBegin(GL_POLYGON);
   glNormal3f(0,0,-1);
   glTexCoord2f(0,0); glVertex3i(-xsz, 0, -zsz);

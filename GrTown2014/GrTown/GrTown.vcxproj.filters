@@ -114,6 +114,9 @@
     <ClInclude Include="Skycube.h">
       <Filter>Added Objects\Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Cabin.h">
+      <Filter>Added Objects\Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Examples\Cars.cpp">
@@ -174,6 +177,9 @@
       <Filter>Engine Core\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Skycube.cpp">
+      <Filter>Added Objects\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Cabin.cpp">
       <Filter>Added Objects\Source</Filter>
     </ClCompile>
   </ItemGroup>

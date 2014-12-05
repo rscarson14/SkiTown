@@ -134,6 +134,7 @@
     <ClInclude Include="GrObject.H" />
     <ClInclude Include="GrTown_PCH.H" />
     <ClInclude Include="GrWorld.H" />
+    <ClInclude Include="Cabin.h" />
     <ClInclude Include="Skycube.h" />
     <ClInclude Include="MMatrix.H" />
     <ClInclude Include="Roads\Drive.H" />
@@ -145,6 +146,7 @@
     <ClCompile Include="..\Utilities\ShaderTools.cpp" />
     <ClCompile Include="..\Utilities\Texture.cpp" />
     <ClCompile Include="Behavior.cpp" />
+    <ClCompile Include="Cabin.cpp" />
     <ClCompile Include="DrawingState.cpp" />
     <ClCompile Include="DrawUtils.cpp" />
     <ClCompile Include="Examples\Cars.cpp" />
