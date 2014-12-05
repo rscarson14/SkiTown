@@ -114,7 +114,7 @@ void TownViewWidget::draw()
   // the actual clearing goes on in the sky routine since its the only
   // thing that knows what color to make the sky
   drawSky(&drst);
-  drawEarth(&drst);
+  //drawEarth(&drst);
 
   //  GrObject* g;
   drawObList(theObjects,&drst);

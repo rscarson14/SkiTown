@@ -63,6 +63,7 @@ void SimpleTree1::draw(DrawingState*)
   glEnd();
 }
 
+
 /***********************************************************************/
 // draw a patch of lawn - use a repeating texture
 Lawn::Lawn(float xi1, float zi1, float xi2, float zi2)

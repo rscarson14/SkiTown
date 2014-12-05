@@ -16,6 +16,10 @@
 // for setting up shader paths and textures
 #include "Utilities/ShaderTools.H"
 #include "Utilities/Texture.H"
+#include <iostream>
+
+#define PI 3.14159
+
 
 
 // Example code (objects and behaviors)
@@ -23,6 +27,8 @@
 
 #include "Roads/Roads.H"
 #include "Roads/Drive.H"
+
+extern GrObject* hill;
 
 
 // define this to get 2 cars that always turn
@@ -48,11 +54,11 @@ int main(int /*argc*/, char** /*argv*/)
 	shaderPaths.push_back("../Shaders");
 
   // add some more stuff
-  GrObject* o1 = new Church;
+  /*GrObject* o1 = new Church;
   o1->interesting = true;
   o1->laX = 0; o1->laY = 0; o1->laZ = 0;
   o1->lfX = -50; o1->lfY = 100; o1->lfZ = 300;
-  add(o1,-100,0,100,pi/2.f);
+  add(o1,-100,0,100,pi/2.f);*/
 
 
   // *****************************************************************
@@ -63,7 +69,7 @@ int main(int /*argc*/, char** /*argv*/)
   // cubes are particularly easy since they set their own position
   // we need to raise the cube since we're giving the position of the
   // center 
-  GrObject* cube1 = new ShadedCube(-50,5,-50,10,   .7f, .6f, .3f);
+  /*GrObject* cube1 = new ShadedCube(-50,5,-50,10,   .7f, .6f, .3f);
   add(cube1);
   cube1->name = "Cube1";
   // make it an interesting object (so its easy to look at)
@@ -84,28 +90,44 @@ int main(int /*argc*/, char** /*argv*/)
   add(cube3);
   new Spin(cube3,.001f);
   GrObject* cube4 = new Cube(0,7.5,0, 5, 1,0,1);
-  cube3->add(cube4);
+  cube3->add(cube4);*/
 
 
   ////////////////////////////////////////////////////////////////////////
   // now to make a real town!
-  int r,c;
-  // make a 5x5 grid of town blocks - 5 houses per
+
+	hill = new Hill(2, 4, 50);
+	add(hill, 0, 0, 0);
+	/*
+	for (std::vector<std::vector<float>>::size_type i = 0; i < hill->hillPoints.size(); i++)
+	{
+		for (std::vector<float>::size_type j = 0; j < hill->hillPoints[i].size(); j++)
+		{
+			std::cout << hill->hillPoints[i][j] << ' ';
+		}
+		std::cout << std::endl;
+	}
+	*/
+	//add(new Tree(0, 0, 0, 0), 0, 0, 0, -PI/2);
+  //int r,c;
+  /*/ make a 5x5 grid of town blocks - 5 houses per
   for( r=0; r<5; r++) {
 	  for( c=0; c<5; c++) {
 		  add(new SimpleSubdivision(5),static_cast<float>(r*530),0,static_cast<float>(c*230));
 		  add(new StraightRoad(static_cast<float>(r*530),static_cast<float>(c*230),static_cast<float>(r*530+500),static_cast<float>(c*230)));
 	  }
-  }
-  // make cross streets
+  }*/
+  /*/ make cross streets
   for(int r=0; r<=5; r++) {
 	  for(c=0; c<4; c++) {
 		  add(new StraightRoad(static_cast<float>(r*530 - 15), static_cast<float>(c*230 + 15), static_cast<float>(r*530 - 15), static_cast<float>(c*230+215)));
 	  }
-  }
+  }*/
+
 
   // make intersections
   // make an intersection intersesting so we can look at it
+  /*
   for(int r=0; r<=5; r++) {
 	  for(c=0; c<5; c++) {
 		  GrObject* g = new Intersection(static_cast<float>(r*530-15), static_cast<float>(c*230));
@@ -118,9 +140,9 @@ int main(int /*argc*/, char** /*argv*/)
 		  add(g);
 	  }
   }
-
+  */
 #ifndef TESTCARS
-  // add some cars
+  /*/ add some cars
   for(int r=0; r<50; r++) {
 	Car* c;
 	switch(rand() % 3) {
@@ -130,9 +152,9 @@ int main(int /*argc*/, char** /*argv*/)
 	}
 	add(c);
     new RandomDrive(c,theRoads[rand() % theRoads.size()],.2f,rand() % 2);
-  }
+  }*/
 #endif
-
+  /*
 #ifdef TESTCARS
   // two cars - one always turns right, one always turns left
   Car* c1 = new HatchBack(1);
@@ -143,8 +165,8 @@ int main(int /*argc*/, char** /*argv*/)
   new RandomDrive(c2,theRoads[8],.5,0,1);
 
 #endif
-
-
+  */
+  /*
 	// a race track
     Road* t = new RoundRoad(-250,250,100);
 	add(t);
@@ -162,7 +184,7 @@ int main(int /*argc*/, char** /*argv*/)
 	add(h);
 	Drive* d = new SimpleDrive(h,t,0,1);
 	d->speed *= 2;
-
+	*/
 
   // *****************************************************************
   // now make a UI

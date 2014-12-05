@@ -13,6 +13,8 @@
 #include "../GrObject.H"
 #include "../DrawingState.H"
 
+using std::vector;
+
 // mainly for debugging
 class Cube : public GrObject {
 public:
@@ -22,6 +24,42 @@ public:
   virtual void draw(DrawingState*);
 };
 
+class Hill : public GrObject {
+public:
+	Hill(float a, float l, float d);
+	float angle, length, div;
+	bool randCalc;
+	vector<vector<float>> hillPoints;
+	virtual void draw(DrawingState*);
+};
+
+class Tree : public GrObject {
+public:
+	Tree(float px, float py, float pz);
+	float x, y, z;
+	virtual void draw(DrawingState*);
+};
+
+class Chair : public GrObject {
+public:
+	Chair(float u);
+	//float x, y, z;
+	virtual void draw(DrawingState*);
+};
+
+class Support : public GrObject {
+public:
+	Support(float px, float py, float pz, float h, float rp, float rw);
+	float x, y, z;
+	float height, poleRad, wheelRad;
+	virtual void draw(DrawingState*);
+};
+
+class Cable : public GrObject {
+public:
+	Cable(vector<vector<float>> cntlPnts);
+
+};
 
 class TestCubes : public GrObject {
 public:

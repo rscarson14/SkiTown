@@ -13,6 +13,8 @@
 // lighting if they want to, ...
 class GrObject;
 
+using std::vector;
+
 #include "DrawUtils.H"
 
 // the drawing state class itself
@@ -31,6 +33,10 @@ public:
 
   // which object is the camera?
   GrObject* camera;
+
+  vector<float> treeXs;
+  vector<float> treeZs;
+
 
   float fieldOfView;
 
