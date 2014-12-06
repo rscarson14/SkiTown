@@ -5,7 +5,8 @@
 #include "GL/glew.h"
 
 #include "GrTown_PCH.H"
-
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 #include "TownViewWidget.H"
 #include "DrawingState.H"
 #include "GrWorld.H"
@@ -19,6 +20,8 @@
 #include "Cabin.h"
 
 #include <iostream>
+
+using namespace glm;
 
 using std::vector;
 

@@ -10,9 +10,8 @@ class Texture;
 class Cabin : public GrObject{
 public:
 	
-	Texture* day_side;
-	Texture* night_side;
-	Texture* roof;
+
+
 
 	Cabin();
 

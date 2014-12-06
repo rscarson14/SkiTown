@@ -38,7 +38,7 @@ void drawSky(DrawingState* st)
 // ft/mile) 
 void drawEarth(DrawingState* st)
 {
- 
+	glDisable(GL_TEXTURE_2D);
   st->ground(0,84,24);
 
   glEnable(GL_POLYGON_OFFSET_FILL);

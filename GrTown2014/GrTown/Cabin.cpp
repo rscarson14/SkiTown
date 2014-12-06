@@ -2,16 +2,26 @@
 
 #include <GL/glew.h>
 
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 
 #include "Cabin.h"
 #include "Utilities/Texture.h"
 #include "Utilities/ShaderTools.H"
 #include <FL/fl_ask.h>
 
+using namespace glm;
+
+Texture* day_side;
+Texture* normal_map;
+Texture* night_side;
+Texture* day_roof;
 
 Cabin::Cabin(){
-
-
+	Texture* day_side = NULL;
+	Texture* normal_map = NULL;
+	Texture* night_side = NULL;
+	Texture* day_roof = NULL;
 }
 
 void Cabin::draw(DrawingState *drst){
@@ -32,101 +42,239 @@ void Cabin::drawAfter(DrawingState *drst){
 			s += error;
 			fl_alert(s.c_str());
 		}
-		
+
 	}
 
-	day_side = fetchTexture("wood_texture.png", false, false);
+	if (day_side == NULL) { day_side = fetchTexture("wood_texture.png", false, false); }
+	if (normal_map == NULL) { normal_map = fetchTexture("wood_normals.png", false, false); }
+	if (day_roof == NULL) { day_roof = fetchTexture("roof3.png", false, false); } 
 
-	GLfloat points[] = {
-			-1.0f, -1.0f, -1.0f, // triangle 1 : begin
-			-1.0f, -1.0f, 1.0f,
-			-1.0f, 1.0f, 1.0f, // triangle 1 : end
-			1.0f, 1.0f, -1.0f, // triangle 2 : begin
-			-1.0f, -1.0f, -1.0f,
-			-1.0f, 1.0f, -1.0f, // triangle 2 : end
+	if (normal_map == NULL || day_side == NULL || day_roof == NULL){
+		printf("ERROR! didn't load cabin stuff correctly\n");
+	}
+	else{	
+		printf("Cabin stuff laoded great\n");
+	}
+
+
+	// Our vertices. Tree consecutive floats give a 3D vertex; Three consecutive vertices give a triangle.
+	// A cube has 6 faces with 2 triangles each, so this makes 6*2=12 triangles, and 12*3 vertices
+	GLfloat g_vertex_buffer_data[] = {
+		-10.0f, -10.0f, -10.0f, // triangle 1 : begin
+		-10.0f, -10.0f, 10.0f,
+		-10.0f, 10.0f, 10.0f, // triangle 1 : end
+
+		10.0f, 10.0f, -10.0f, // triangle 2 : begin
+		-10.0f, -10.0f, -10.0f,
+		-10.0f, 10.0f, -10.0f, // triangle 2 : end
+		
+		10.0f, -10.0f, 10.0f, //
+		-10.0f, -10.0f, -10.0f,
+		10.0f, -10.0f, -10.0f,
+
+		10.0f, 10.0f, -10.0f, //
+		10.0f, -10.0f, -10.0f,
+		-10.0f, -10.0f, -10.0f,
+
+		-10.0f, -10.0f, -10.0f, //
+		-10.0f, 10.0f, 10.0f,
+		-10.0f, 10.0f, -10.0f,
+
+		10.0f, -10.0f, 10.0f, //
+		-10.0f, -10.0f, 10.0f,
+		-10.0f, -10.0f, -10.0f,
+
+		-10.0f, 10.0f, 10.0f, //
+		-10.0f, -10.0f, 10.0f,
+		10.0f, -10.0f, 10.0f,
+		
+		10.0f, 10.0f, 10.0f, //*
+		10.0f, -10.0f, -10.0f,
+		10.0f, 10.0f, -10.0f,
+		
+		10.0f, -10.0f, -10.0f, //
+		10.0f, 10.0f, 10.0f,
+		10.0f, -10.0f, 10.0f,
+		
+		10.0f, 10.0f, 10.0f, //
+		10.0f, 10.0f, -10.0f,
+		-10.0f, 10.0f, -10.0f,
+		
+		10.0f, 10.0f, 10.0f, //
+		-10.0f, 10.0f, -10.0f,
+		-10.0f, 10.0f, 10.0f,
+		
+		10.0f, 10.0f, 10.0f, //
+		-10.0f, 10.0f, 10.0f,
+		10.0f, -10.0f, 10.0f,
 	};
 
 	GLfloat tex_coords[] = {
 		// face 1
-		1.0, 0.0,
-		1.0, 1.0,
-		0.0, 1.0,
+		0.0f, 0.0f,//
+		1.0f, 0.0f,
+		1.0f, 1.0f,
+		
+		0.0f, 1.0f,//
+		1.0f, 0.0f,
+		1.0f, 1.0f,
 
-		0.0, 1.0,
-		0.0, 0.0,
-		1.0, 0.0
+		1.0f, 0.0f, //
+		1.0f, 1.0f,
+		0.0f, 1.0f,
+
+		0.0f, 1.0f, //
+		0.0f, 0.0f,
+		1.0f, 0.0f,
+
+		1.0f, 0.0f, // 
+		0.0f, 1.0f,
+		1.0f, 1.0f,
+
+		1.0f, 1.0f, //
+		0.0f, 1.0f,
+		0.0f, 0.0f,
+
+		0.0f, 1.0f, //
+		0.0f, 0.0f,
+		1.0f, 0.0f,
+
+		1.0f, 1.0f, //*
+		1.0f, 0.0f,
+		0.0f, 1.0f,
+
+		1.0f, 0.0f, //
+		0.0f, 1.0f,
+		0.0f, 0.0f,
+
+		1.0f, 0.0f, //
+		1.0f, 1.0f,
+		0.0f, 1.0f,
+
+		1.0f, 0.0f, //
+		0.0f, 1.0f,
+		0.0f, 0.0f,
+
+		1.0f, 1.0f,
+		0.0f, 1.0f,
+		1.0f, 0.0f,
 	};
 
 	glUseProgram(wallShader);
-	
 	glDisable(GL_CULL_FACE);
-
-	GLfloat g_vertex_buffer_data[] = {
-		-1.0f, -1.0f, 0.0f,
-		1.0f, -1.0f, 0.0f,
-		0.0f, 1.0f, 0.0f,
-	};
 	
-	GLuint vertexBuffer;
+	glPushMatrix();
+	glTranslated(0, 10, 0);
 
-	glGenBuffers(1, &vertexBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+	mat4 pMat = mat4(0.0f);
+	mat4 vMat = mat4(0.0f);
 
-	glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW);
+	glGetFloatv(GL_PROJECTION_MATRIX, &pMat[0][0]);
+	glGetFloatv(GL_MODELVIEW_MATRIX, &vMat[0][0]);
 
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+	mat4 MVP = pMat * vMat;
+	
+	// Get a handle for our "MVP" uniform.
+	// Only at initialisation time.
+	GLuint MatrixID = glGetUniformLocation(wallShader, "MVP");
+	GLuint TextureID = glGetUniformLocation(wallShader, "tex");
+	GLuint NormalID = glGetUniformLocation(wallShader, "normals");
+
+	// Send our transformation to the currently bound shader,
+	// in the "MVP" uniform
+	// For each model you render, since the MVP will be different (at least the M part)
+	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
+	glUniform1i(TextureID, 0);
+	glUniform1i(NormalID, 1);
+
+	//if (day_side == NULL){ printf("Problems....\n"); }
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, day_side->texName);
+
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, normal_map->texName);
+
+	GLuint buffers[2]; // 0 = vertex, 1 = uv
+
+	glGenBuffers(2, buffers);
+	
+	glBindBuffer(GL_ARRAY_BUFFER, buffers[0]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+	glEnableVertexAttribArray(0);
 
-	glDrawArrays(GL_TRIANGLES, 0, 18);
+	glBindBuffer(GL_ARRAY_BUFFER, buffers[1]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(tex_coords), tex_coords, GL_STATIC_DRAW);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, NULL);
+	glEnableVertexAttribArray(1);
+
+	glDrawArrays(GL_TRIANGLES, 0, sizeof(g_vertex_buffer_data));
+
 	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
 
-	/*GLuint points_buffer;
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, day_roof->texName);
 
-	glGenBuffers(1, &points_buffer);
-	glBindBuffer(GL_ARRAY_BUFFER, points_buffer);
-	glBufferData(GL_ARRAY_BUFFER, 18 * sizeof(float), &points, GL_STATIC_DRAW);
-	
-	GLuint points_vao;
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, normal_map->texName);
 
-	glEnableVertexAttribArray(0);
-	glGenVertexArrays(1, &points_vao);
-	glBindVertexArray(points_vao);
-	glVertexAttribPointer(0, 18, GL_FLOAT, GL_FALSE, 0, NULL);
+	 GLfloat g_roof_buffer_data[] = {
+		-12.0f, 8.0f, 12.0f,
+		0.0f, 20.0f, 0.0f,
+		12.0f, 8.0f, 12.0f,
 
-	glDrawArrays(GL_TRIANGLES, 0, 18);*/
+		12.0f, 8.0f, -12.0f,
+		0.0f, 20.0f, 0.0f,
+		12.0f, 8.0f, 12.0f,
 
-	//glDisableVertexAttribArray(0);
-//	glUseProgram(NULL);
+		-12.0f, 8.0f, -12.0f,
+		0.0f, 20.0f, 0.0f,
+		12.0f, 8.0f, -12.0f,
 
-	/*GLint texUniform = glGetUniformLocation(wallShader, "tex");
+		-12.0f, 8.0f, -12.0f,
+		0.0f, 20.0f, 0.0f,
+		-12.0f, 8.0f, 12.0f,
+	};
 
-	if (texUniform < 0){
-		printf("ERROR!!!!! loading texture uniform\n");
-	}
-	glUniform1i(texUniform, day_side->texName);
+	 GLfloat g_roof_tex_data[] = {
+		0.0f, 0.0f,
+		0.5f, 1.0f,
+		1.0f, 0.0f,
 
-	GLuint points_vbo = 0;
-	glGenBuffers(1, &points_vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, points_vbo);
-	glBufferData(GL_ARRAY_BUFFER, 18 * sizeof (float), points, GL_STATIC_DRAW);
+		0.0f, 0.0f,
+		0.5f, 1.0f,
+		1.0f, 0.0f,
 
-	GLuint colours_vbo = 0;
-	glGenBuffers(1, &colours_vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, colours_vbo);
-	glBufferData(GL_ARRAY_BUFFER, 12 * sizeof (float), tex_coords, GL_STATIC_DRAW);
+		0.0f, 0.0f,
+		0.5f, 1.0f,
+		1.0f, 0.0f,
 
-	GLuint vao = 0;
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
-	glBindBuffer(GL_ARRAY_BUFFER, points_vbo);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-	glBindBuffer(GL_ARRAY_BUFFER, colours_vbo);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+		0.0f, 0.0f,
+		0.5f, 1.0f,
+		1.0f, 0.0f,
+	 };
 
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);*/
 
-	//glDrawArraysEXT(GL_TRIANGLES, 0, 18);
+	 glGenBuffers(2, buffers);
+
+	 glBindBuffer(GL_ARRAY_BUFFER, buffers[0]);
+	 glBufferData(GL_ARRAY_BUFFER, sizeof(g_roof_buffer_data), g_roof_buffer_data, GL_STATIC_DRAW);
+	 glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+	 glEnableVertexAttribArray(0);
+
+	 glBindBuffer(GL_ARRAY_BUFFER, buffers[1]);
+	 glBufferData(GL_ARRAY_BUFFER, sizeof(g_roof_tex_data), g_roof_tex_data, GL_STATIC_DRAW);
+	 glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, NULL);
+	 glEnableVertexAttribArray(1);
+
+	 glDrawArrays(GL_TRIANGLES, 0, sizeof(g_roof_buffer_data));
+
+	 glDisableVertexAttribArray(0);
+	 glDisableVertexAttribArray(1);
+
+	glUseProgram(NULL);
+	glActiveTexture(NULL);
+	glPopMatrix();
 	
 }

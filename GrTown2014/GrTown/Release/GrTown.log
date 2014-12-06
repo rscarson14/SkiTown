@@ -1,10 +1,10 @@
-﻿Build started 12/4/2014 6:17:20 PM.
+﻿Build started 12/6/2014 2:09:12 PM.
      1>Project "C:\Users\Robert\Documents\Code\cs559\Graphics_Town\SkiTown\GrTown2014\GrTown\GrTown.vcxproj" on node 2 (Build target(s)).
      1>PreBuildEvent:
          C:/"Program Files (x86)/FLTK 1.3.2"/bin/fluid.exe -c GraphicsTownUI.fl
          :VCEnd
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\FLTK 1.3.2\include" /I"C:\Program Files\glew\include" /I.. /Zi /nologo /W3 /WX- /O2 /Oy- /D WIN32 /D NDEBUG /D _CONSOLE /D _CRT_SECURE_NO_WARNINGS /D _VC80_UPGRADE=0x0710 /D _MBCS /Gm- /EHsc /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Cabin.cpp GraphicsTownUI.cxx Main.cpp TownViewWidget.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\FLTK 1.3.2\include" /I"C:\Program Files\glew\include" /I"C:\Program Files (x86)\glm" /I.. /Zi /nologo /W3 /WX- /O2 /Oy- /D WIN32 /D NDEBUG /D _CONSOLE /D _CRT_SECURE_NO_WARNINGS /D _VC80_UPGRADE=0x0710 /D _MBCS /Gm- /EHsc /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Cabin.cpp GraphicsTownUI.cxx Main.cpp TownViewWidget.cpp
          Cabin.cpp
          GraphicsTownUI.cxx
          Main.cpp
@@ -32,22 +32,6 @@
          Release\Roads.obj
          Release\Skycube.obj
          Release\TownViewWidget.obj
-     1>Skycube.obj : warning LNK4204: 'C:\Users\Robert\Documents\Code\cs559\Graphics_Town\SkiTown\GrTown2014\GrTown\Release\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
-     1>Roads.obj : warning LNK4204: 'C:\Users\Robert\Documents\Code\cs559\Graphics_Town\SkiTown\GrTown2014\GrTown\Release\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
-     1>Drive.obj : warning LNK4204: 'C:\Users\Robert\Documents\Code\cs559\Graphics_Town\SkiTown\GrTown2014\GrTown\Release\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
-     1>MMatrix.obj : warning LNK4204: 'C:\Users\Robert\Documents\Code\cs559\Graphics_Town\SkiTown\GrTown2014\GrTown\Release\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
-     1>GrWorld.obj : warning LNK4204: 'C:\Users\Robert\Documents\Code\cs559\Graphics_Town\SkiTown\GrTown2014\GrTown\Release\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
-     1>GrObject.obj : warning LNK4204: 'C:\Users\Robert\Documents\Code\cs559\Graphics_Town\SkiTown\GrTown2014\GrTown\Release\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
-     1>FlyCamera.obj : warning LNK4204: 'C:\Users\Robert\Documents\Code\cs559\Graphics_Town\SkiTown\GrTown2014\GrTown\Release\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
-     1>Suburbs.obj : warning LNK4204: 'C:\Users\Robert\Documents\Code\cs559\Graphics_Town\SkiTown\GrTown2014\GrTown\Release\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
-     1>SimpleBehaviors.obj : warning LNK4204: 'C:\Users\Robert\Documents\Code\cs559\Graphics_Town\SkiTown\GrTown2014\GrTown\Release\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
-     1>Objects.obj : warning LNK4204: 'C:\Users\Robert\Documents\Code\cs559\Graphics_Town\SkiTown\GrTown2014\GrTown\Release\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
-     1>Cars.obj : warning LNK4204: 'C:\Users\Robert\Documents\Code\cs559\Graphics_Town\SkiTown\GrTown2014\GrTown\Release\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
-     1>DrawUtils.obj : warning LNK4204: 'C:\Users\Robert\Documents\Code\cs559\Graphics_Town\SkiTown\GrTown2014\GrTown\Release\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
-     1>DrawingState.obj : warning LNK4204: 'C:\Users\Robert\Documents\Code\cs559\Graphics_Town\SkiTown\GrTown2014\GrTown\Release\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
-     1>Behavior.obj : warning LNK4204: 'C:\Users\Robert\Documents\Code\cs559\Graphics_Town\SkiTown\GrTown2014\GrTown\Release\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
-     1>Texture.obj : warning LNK4204: 'C:\Users\Robert\Documents\Code\cs559\Graphics_Town\SkiTown\GrTown2014\GrTown\Release\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
-     1>ShaderTools.obj : warning LNK4204: 'C:\Users\Robert\Documents\Code\cs559\Graphics_Town\SkiTown\GrTown2014\GrTown\Release\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
      1>fltk.lib(case.obj) : warning LNK4204: 'C:\Users\Robert\Documents\Code\cs559\Graphics_Town\SkiTown\GrTown2014\GrTown\Release\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
      1>fltk.lib(filename_ext.obj) : warning LNK4204: 'C:\Users\Robert\Documents\Code\cs559\Graphics_Town\SkiTown\GrTown2014\GrTown\Release\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
      1>fltk.lib(filename_list.obj) : warning LNK4204: 'C:\Users\Robert\Documents\Code\cs559\Graphics_Town\SkiTown\GrTown2014\GrTown\Release\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
@@ -181,4 +165,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.63
+Time Elapsed 00:00:03.02

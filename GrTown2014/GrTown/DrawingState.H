@@ -14,6 +14,7 @@
 class GrObject;
 
 #include "DrawUtils.H"
+#include "glm/glm.hpp"
 
 // the drawing state class itself
 class DrawingState {
@@ -28,6 +29,9 @@ public:
   // draw sky/ground sets these based on time of day
   Color sky;
   Color ground;
+
+  //current ModelViewProjection matrix
+  glm::mat4 MVP;
 
   // which object is the camera?
   GrObject* camera;
