@@ -104,7 +104,7 @@ void TownViewWidget::draw()
 
 	// compute the aspect ratio so we don't distort things
 	double aspect = ((double)w()) / ((double)h());
-	gluPerspective(drst.fieldOfView, aspect, 1, 60000);
+	gluPerspective(drst.fieldOfView, aspect, 1, 100000);
 
 	// put the camera where we want it to be
 	glMatrixMode(GL_MODELVIEW);
@@ -121,10 +121,8 @@ void TownViewWidget::draw()
 	// the actual clearing goes on in the sky routine since its the only
 	// thing that knows what color to make the sky
 	drawSky(&drst);
-	//mSkycube->draw(&drst, getCamera());
+	mSkycube->draw(&drst, getCamera());
 	drawEarth(&drst);
-
-	mCabin->drawAfter(&drst);
 
 	//  GrObject* g;
 	drawObList(theObjects, &drst);

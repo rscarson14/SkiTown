@@ -208,43 +208,46 @@ void* read_JPG(char *filename, int *width, int *height)
 void* read_BMP(char *filename, int *width, int *height)
 //=============================================================================
 {
-  if (!filename) {
+	if (!filename) {
 		printf("No filename given.\n");
-    return 0;
-  }// if
+		return 0;
+	}// if
 
- 	Fl_BMP_Image *bmp_image = new Fl_BMP_Image(filename);
-	*width  = bmp_image->w();
+	Fl_BMP_Image *bmp_image = new Fl_BMP_Image(filename);
+	*width = bmp_image->w();
 	*height = bmp_image->h();
-	int depth  = bmp_image->d();
+	int depth = bmp_image->d();
 
-	if(*width <= 0 || *height <= 0){
+	if (*width <= 0 || *height <= 0){
 		// printf("Fail to load in image\n");
 		return NULL;
 	}
-	if(depth != 3) {
-		printf("The image is not in RGB\n");
+	if (depth != 3 && depth != 4) {
+		printf("The image is not in RGB, %d \n", depth);
 		return NULL;
 	}
 
-	int total = *width * *height * (depth + 1);
+	int total = *width * *height * (depth);
 	unsigned char *temp_data = new unsigned char[total];
 
-	for(int i = 0; i < *width; i++){
+	for (int i = 0; i < *width; i++){
 		int raw_index = i * *height;
-		for(int j = 0; j < *height; j++){
-			int org_raw_height = (raw_index + j) * 3;
+		for (int j = 0; j < *height; j++){
+			int org_raw_height = (raw_index + j) * 4;
 			int dst_raw_height = (raw_index + j) * 4;
-			for(int k = 0; k < depth; k++){
+			for (int k = 0; k < depth; k++){
 				int org_index = org_raw_height + k;
 				int dst_index = dst_raw_height + k;
-				temp_data[dst_index] =  bmp_image->data()[0][org_index];
+				//printf("%u\n", bmp_image->data()[0][org_index]);
+				temp_data[dst_index] = bmp_image->data()[0][org_index + 3];
 			}
-			temp_data[i * *height * 4 + j * 4 + 3] = 255;
+			//temp_data[i * *height * 4 + j * 4 + 3] = 255;
 		}
 	}
+
 	unsigned char *result = Reverse_Rows(temp_data, *width, *height);
-	delete [] temp_data;
+
+	delete[] temp_data;
 	return result;
 }// read_BMP
 

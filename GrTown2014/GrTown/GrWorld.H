@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "Skycube.h"
+#include "ModernLights.h"
 
 //
 // "the world" - framework for stuff to go into

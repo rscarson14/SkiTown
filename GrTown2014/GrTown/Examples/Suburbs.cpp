@@ -193,13 +193,14 @@ Church::Church() : GrObject("Church")
 }
 void Church::draw(DrawingState*)
 {
+
   int xsz = 30;
   int zsz = 40;
   int hgh = 50;
   int top = 65;
 
   glColor3fv(&color.r);
-  fetchTexture("wood_texture.png");
+  fetchTexture("church-front.png");
   glBegin(GL_POLYGON);
   glNormal3f(0,0,-1);
   glTexCoord2f(0,0); glVertex3i(-xsz, 0, -zsz);

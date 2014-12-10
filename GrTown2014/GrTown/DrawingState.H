@@ -15,6 +15,7 @@ class GrObject;
 
 #include "DrawUtils.H"
 #include "glm/glm.hpp"
+#include "ModernLights.h"
 
 // the drawing state class itself
 class DrawingState {
@@ -32,6 +33,8 @@ public:
 
   //current ModelViewProjection matrix
   glm::mat4 MVP;
+
+  DirectionalLight sun;
 
   // which object is the camera?
   GrObject* camera;

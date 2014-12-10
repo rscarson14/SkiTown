@@ -7,8 +7,11 @@
 #include "GrWorld.H"
 #include "DrawingState.H"
 #include "DrawUtils.H"
+#include "ModernLights.h"
+#include "glm/glm.hpp"
 
 using std::vector;
+using namespace glm;
 
 // stuff in the world
 vector<GrObject*> theObjects;
@@ -39,7 +42,7 @@ void drawSky(DrawingState* st)
 void drawEarth(DrawingState* st)
 {
 	glDisable(GL_TEXTURE_2D);
-  st->ground(0,84,24);
+  st->ground(1.0f, 1.0f, 1.0f, 1.0f);
 
   glEnable(GL_POLYGON_OFFSET_FILL);
   glPolygonOffset(1.,10);
@@ -52,20 +55,23 @@ void drawEarth(DrawingState* st)
   glVertex3d(-25000,-1,-25000);
   glEnd();
   glDisable(GL_POLYGON_OFFSET_FILL);
-
+  
   }
 
 // 
 // setup lighting
 void setupLights(DrawingState* dr)
 {
+	dr->sun.lookTowards = vec4(0.0f, 0.0f, 0.0f, 1.0f);
   // depending on time of day, the lighting changes
   // ambient is either night or day
   if ((dr->timeOfDay >= 5) && (dr->timeOfDay <=19)) {
 	float a0[] = {.4f,.4f,.4f,.4f};
+	dr->sun.ambientColor = vec4(0.4f, 0.4f, 0.4f, 0.4f);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, a0);
   } else {
 	float a1[] = {.2f,.2f,.2f,.2f};
+	dr->sun.ambientColor = vec4(0.2f, 0.2f, 0.2f, 0.2f);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, a1);
   }
   // directional, if its on, depends on what hour it is
@@ -74,6 +80,7 @@ void setupLights(DrawingState* dr)
 	float angle = (((float)(dr->timeOfDay-5)) / 7.f) * (3.14159f/2.f);
 	pos[0] = (float) cos(angle);
 	pos[1] = (float) sin(angle);
+	dr->sun.lookFrom = vec4(pos[0], pos[1], pos[0], 1.0f);
   }
   else {
 	  pos[1] = -1;

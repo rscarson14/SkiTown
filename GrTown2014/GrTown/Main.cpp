@@ -48,13 +48,20 @@ int main(int /*argc*/, char** /*argv*/)
 	shaderPaths.push_back("Shaders");
 	shaderPaths.push_back("../Shaders");
 
-  // add some more stuff
+	//add cabin
+	GrObject* c1 = new Cabin;
+	c1->interesting = true;
+	c1->laX = 0; c1->laY = 0; c1->laZ = 0;
+	c1->lfX = -50; c1->lfY = 100; c1->lfZ = 300;
+	add(c1, -100, 0, 100, pi / 2.0f);
+
+  /*// add some more stuff
   GrObject* o1 = new Church;
   o1->interesting = true;
   o1->laX = 0; o1->laY = 0; o1->laZ = 0;
   o1->lfX = -50; o1->lfY = 100; o1->lfZ = 300;
   add(o1,-100,0,100,pi/2.f);
-
+  */
 
   // *****************************************************************
   //  Make your town here

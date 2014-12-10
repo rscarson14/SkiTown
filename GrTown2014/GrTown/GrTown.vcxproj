@@ -135,6 +135,7 @@
     <ClInclude Include="GrTown_PCH.H" />
     <ClInclude Include="GrWorld.H" />
     <ClInclude Include="Cabin.h" />
+    <ClInclude Include="ModernLights.h" />
     <ClInclude Include="Skycube.h" />
     <ClInclude Include="MMatrix.H" />
     <ClInclude Include="Roads\Drive.H" />

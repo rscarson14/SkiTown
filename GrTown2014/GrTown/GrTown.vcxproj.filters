@@ -117,6 +117,9 @@
     <ClInclude Include="Cabin.h">
       <Filter>Added Objects\Headers</Filter>
     </ClInclude>
+    <ClInclude Include="ModernLights.h">
+      <Filter>Added Objects\Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Examples\Cars.cpp">

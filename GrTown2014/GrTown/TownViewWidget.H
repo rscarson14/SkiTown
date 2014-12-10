@@ -12,6 +12,7 @@
 #include "Fl/Fl_Gl_Window.H"
 #include "Skycube.h"
 #include "Cabin.h"
+#include "ModernLights.h"
 
 class GraphicsTownUI;
 class DrawingState;
