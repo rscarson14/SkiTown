@@ -28,7 +28,7 @@
 #include "Roads/Roads.H"
 #include "Roads/Drive.H"
 
-extern GrObject* hill;
+extern Hill* hill;
 
 
 // define this to get 2 cars that always turn
@@ -82,7 +82,7 @@ int main(int /*argc*/, char** /*argv*/)
   // make another cube - make this one spin around
   GrObject* cube2 = new Cube(-50,5,-25,10,   .3f, .6f, .7f);
   add(cube2);
-  new Spin(cube2);
+  
 
   // now to demonstrate hierarchy - make another cube that spins, and
   // put a smaller cube on top of it
@@ -98,16 +98,30 @@ int main(int /*argc*/, char** /*argv*/)
 
 	hill = new Hill(2, 4, 50);
 	add(hill, 0, 0, 0);
-	/*
-	for (std::vector<std::vector<float>>::size_type i = 0; i < hill->hillPoints.size(); i++)
-	{
-		for (std::vector<float>::size_type j = 0; j < hill->hillPoints[i].size(); j++)
-		{
-			std::cout << hill->hillPoints[i][j] << ' ';
-		}
-		std::cout << std::endl;
-	}
-	*/
+	/*Lift*lift = new Lift(50);
+	add(lift, 0, 0, 0);
+	new Spin(lift->sup1, 0.001);
+	new Spin(lift->sup2, 0.001);*/
+	float h = 50;
+	float z = 50;
+	float x1 = 20;
+	float x2 = -356.;
+	float y1 = -1;
+	float y2 = 169;
+	float wr = 10;
+	GrObject*chair = new Chair(0.0);
+	GrObject* sup = new Support(x1, y1, z, h, 4, wr);
+	GrObject* sup2 = new Support(x2, y2, z, h, 4, wr);
+	GrObject* cable = new Cable(h-2, z, x1, x2, y1, y2, wr, 1.95);
+
+	add(chair, 0, 20, 0);
+	add(sup, 20, -1, 50);
+	add(sup2, -356., 169, 50);
+	add(cable, 0, 0, 0);
+	new Spin(sup, 0.001);
+	new Spin(sup2, 0.001);
+
+	
 	//add(new Tree(0, 0, 0, 0), 0, 0, 0, -PI/2);
   //int r,c;
   /*/ make a 5x5 grid of town blocks - 5 houses per

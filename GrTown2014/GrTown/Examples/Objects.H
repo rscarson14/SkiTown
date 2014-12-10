@@ -12,8 +12,11 @@
 
 #include "../GrObject.H"
 #include "../DrawingState.H"
+#include "glm/glm.hpp"
 
 using std::vector;
+using namespace std;
+using namespace glm;
 
 // mainly for debugging
 class Cube : public GrObject {
@@ -28,8 +31,9 @@ class Hill : public GrObject {
 public:
 	Hill(float a, float l, float d);
 	float angle, length, div;
-	bool randCalc;
-	vector<vector<float>> hillPoints;
+	bool firstDraw;
+	vector<float> hillPointsX;
+	vector<float> hillPointsY;
 	virtual void draw(DrawingState*);
 };
 
@@ -38,6 +42,13 @@ public:
 	Tree(float px, float py, float pz);
 	float x, y, z;
 	virtual void draw(DrawingState*);
+};
+
+class Lift : public GrObject{
+public:
+	Lift(float z);
+	GrObject*sup1;
+	GrObject*sup2;
 };
 
 class Chair : public GrObject {
@@ -51,14 +62,19 @@ class Support : public GrObject {
 public:
 	Support(float px, float py, float pz, float h, float rp, float rw);
 	float x, y, z;
-	float height, poleRad, wheelRad;
+	float supHeight, poleRad, wheelRad;
+	std::vector<vec3> va_vertices;
+	std::vector<ivec3> va_indices;
+	std::vector<vec3> va_normals;
 	virtual void draw(DrawingState*);
 };
 
 class Cable : public GrObject {
 public:
-	Cable(vector<vector<float>> cntlPnts);
-
+	Cable(float h, float z, float x1, float x2, float y1, float y2, float wr, float t);
+	virtual void draw(DrawingState*);
+	vector<vec3> cntlPnts;
+	float tension;
 };
 
 class TestCubes : public GrObject {
