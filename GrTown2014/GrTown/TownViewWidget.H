@@ -10,6 +10,8 @@
 // is responsible for the UI and the drawing
 
 #include "Fl/Fl_Gl_Window.H"
+#include "Terrain.h"
+#include "Skycube.h"
 
 class GraphicsTownUI;
 class DrawingState;
@@ -34,6 +36,10 @@ class TownViewWidget : public Fl_Gl_Window
   FlyCamera* defaultCamera;
   FollowCam* followCamera;
   InterestingCam* interestingCamera;
+
+  BYTE gHeightMap[MAP_SIZE*MAP_SIZE];
+
+  Skycube* mSky;
 
   // point the defaultCamera at an object that is interesting
   void lookat(GrObject*);

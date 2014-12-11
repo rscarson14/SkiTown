@@ -66,6 +66,7 @@ public:
 	std::vector<vec3> va_vertices;
 	std::vector<ivec3> va_indices;
 	std::vector<vec3> va_normals;
+	std::vector<vec2> va_tex_coords;
 	virtual void draw(DrawingState*);
 };
 

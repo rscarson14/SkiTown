@@ -57,8 +57,8 @@ TownViewWidget::TownViewWidget(int x, int y, int w, int h,
   Fl::add_idle(tvIdler,this);
   followCamera = new FollowCam();
   interestingCamera = new InterestingCam();
-
-
+  mSky = new Skycube();
+  LoadRawFile("mountains.raw", MAP_SIZE*MAP_SIZE, gHeightMap);
 
 }
   
@@ -114,7 +114,12 @@ void TownViewWidget::draw()
   // the actual clearing goes on in the sky routine since its the only
   // thing that knows what color to make the sky
   drawSky(&drst);
+  mSky->draw(&drst, getCamera());
   //drawEarth(&drst);
+  glPushMatrix();
+  glTranslatef(0.0f, -2.5f, 0.0f);
+  RenderHeightMap(gHeightMap, &drst);
+  glPopMatrix();
 
   //  GrObject* g;
   drawObList(theObjects,&drst);

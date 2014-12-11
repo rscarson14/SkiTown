@@ -3,6 +3,8 @@
 // updated Fall, 2005
 // updated Fall, 2006 - new texture manager, improvements for behaviors
 
+#include <GL/glew.h>
+
 #include "../GrTown_PCH.H"
 #include "Objects.H"
 #include "../DrawUtils.H"
@@ -221,8 +223,6 @@ void Chair::draw(DrawingState*){
 	polygon(-4, 5., -2., 0., 5., -2., 1., -5., -2., 1., -5., -2., 0.);
 	glPopMatrix();
 
-
-
 }
 
 Support::Support(float px, float py, float pz, float h, float rp, float rw) : x(px), y(py), z(pz), supHeight(h), poleRad(rp), wheelRad(rw)
@@ -235,13 +235,14 @@ void Support::draw(DrawingState*d){
 	GLUquadricObj *quadObj = gluNewQuadric();
 	GLUquadricObj *quadObjIn = gluNewQuadric();
 
-
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
+	glEnable(GL_TEXTURE_2D);
 
 	//GL_CULL_FACE is left enabled as disabling it leads to bizarre ripple effects
 
 
 
-	glColor3f(0.1, 0.1, 0.1);
+	glColor3f(0.5, 0.5, 0.5);
 	GLfloat r;
 
 	if (va_vertices.size() == 0) {
@@ -265,6 +266,7 @@ void Support::draw(DrawingState*d){
 		for (height = 0.0; height <= supHeight; height += heightIncrement) {
 			for (angle = 0; angle < 360; angle += angleIncrement){
 				this->va_vertices.push_back(glm::vec3((r * cos(angle*(PI / 180))), height, (r * sin(angle*(PI / 180)))));
+				this->va_tex_coords.push_back(vec2(angle / 360, height / supHeight));
 			}
 			if (height >= 20.0 && height <= 30.0){
 				r -= radialDecreasePerHeightIncrement;
@@ -335,14 +337,21 @@ void Support::draw(DrawingState*d){
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	fetchTexture("metal013.png", true, true);
 
 	glVertexPointer(3, GL_FLOAT, 0, &va_vertices[0]);
 	glNormalPointer(GL_FLOAT, 0, &va_normals[0]);
+	glTexCoordPointer(2, GL_FLOAT, 0, &va_tex_coords[0]);
 
 	glDrawElements(GL_TRIANGLES, 3 * va_indices.size(), GL_UNSIGNED_INT, &va_indices[0]);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	glColor3f(0.5f, 0.5f, 0.5f);
 	 
 	glPushMatrix();
 	glTranslated(0, supHeight, 0);
@@ -381,6 +390,7 @@ void Support::draw(DrawingState*d){
 
 
 	glPopMatrix();
+	glPopAttrib();
 	
 
 }
@@ -392,7 +402,12 @@ Tree::Tree(float px, float py, float pz)
 
 }
 
+
+Texture tree_tex;
 void Tree::draw(DrawingState* d){
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
+	glEnable(GL_TEXTURE_2D);
+
 	float changez = 0;
 	
 	float xpos = ((FlyCamera*)d->camera)->posX - x;
@@ -403,8 +418,11 @@ void Tree::draw(DrawingState* d){
 
 	//rotate train on y axis to get correct orientation in xz plane
 	glRotatef(((atan(xpos / zpos) * 180 / PI) + changez + 90), 0, 1, 0);
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-	fetchTexture("pinetree.bmp");
+
+	tree_tex = *fetchTexture("pinetree.bmp", false, false);
+
+	//glActiveTexture(GL_TEXTURE0);
+
 	glBegin(GL_POLYGON);
 	glNormal3f(1, 0, 0);
 	glColor3f(1, 1, 1);
@@ -417,6 +435,7 @@ void Tree::draw(DrawingState* d){
 
 	// back of the sign
 	glBindTexture(GL_TEXTURE_2D, 0);
+	glPopAttrib();
 
 }
 

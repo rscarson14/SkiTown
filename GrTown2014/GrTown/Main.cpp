@@ -24,9 +24,10 @@
 
 // Example code (objects and behaviors)
 #include "Examples/Suburbs.H"
-
+#include "Cabin.h"
 #include "Roads/Roads.H"
 #include "Roads/Drive.H"
+#include "Snow.h"
 
 extern Hill* hill;
 
@@ -96,6 +97,10 @@ int main(int /*argc*/, char** /*argv*/)
   ////////////////////////////////////////////////////////////////////////
   // now to make a real town!
 
+	GrObject* snow = new Snow(1500);
+	new SnowFall(snow, 0.015f);
+	add(snow, 0.0f, 0.0f, 0.0f, 0.0f);
+
 	hill = new Hill(2, 4, 50);
 	add(hill, 0, 0, 0);
 	/*Lift*lift = new Lift(50);
@@ -120,6 +125,21 @@ int main(int /*argc*/, char** /*argv*/)
 	add(cable, 0, 0, 0);
 	new Spin(sup, 0.001);
 	new Spin(sup2, 0.001);
+
+
+	//add cabin
+	GrObject* c1 = new Cabin;
+	c1->interesting = true;
+	c1->laX = 0; c1->laY = 0; c1->laZ = 0;
+	c1->lfX = -50; c1->lfY = 100; c1->lfZ = 300;
+	add(c1, 100, 0, 100, pi / 2.0f);
+
+	GrObject* c2 = new Cabin;
+	c2->interesting = true;
+	c2->laX = 5; c2->laY = 10; c2->laZ = -30;
+	c2->lfX = 20; c2->lfY = 20; c2->lfZ = 40;
+	add(c2, 200, 0, 100, pi / 2.0f);
+	//new Spin(c1, 0.001);
 
 	
 	//add(new Tree(0, 0, 0, 0), 0, 0, 0, -PI/2);

@@ -103,7 +103,6 @@ void Car::draw(DrawingState* d)
 	  drawWheel(h,1);
   glPopMatrix();
 
-
   glColor3fv(&color.r);
   drawBody(d);
 }

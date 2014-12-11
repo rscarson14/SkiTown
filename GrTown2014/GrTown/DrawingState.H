@@ -14,7 +14,8 @@
 class GrObject;
 
 using std::vector;
-
+#include "glm/glm.hpp"
+#include "ModernLights.h"
 #include "DrawUtils.H"
 
 // the drawing state class itself
@@ -33,6 +34,11 @@ public:
 
   // which object is the camera?
   GrObject* camera;
+
+  //current ModelViewProjection matrix
+  glm::mat4 MVP;
+
+  DirectionalLight sun;
 
   vector<float> treeXs;
   vector<float> treeZs;

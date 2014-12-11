@@ -123,6 +123,7 @@
     <ClInclude Include="..\Utilities\ShaderTools.H" />
     <ClInclude Include="..\Utilities\Texture.H" />
     <ClInclude Include="Behavior.H" />
+    <ClInclude Include="Cabin.h" />
     <ClInclude Include="DrawingState.H" />
     <ClInclude Include="DrawUtils.H" />
     <ClInclude Include="Examples\Cars.H" />
@@ -135,8 +136,12 @@
     <ClInclude Include="GrTown_PCH.H" />
     <ClInclude Include="GrWorld.H" />
     <ClInclude Include="MMatrix.H" />
+    <ClInclude Include="ModernLights.h" />
     <ClInclude Include="Roads\Drive.H" />
     <ClInclude Include="Roads\Roads.H" />
+    <ClInclude Include="Skycube.h" />
+    <ClInclude Include="Snow.h" />
+    <ClInclude Include="Terrain.h" />
     <ClInclude Include="TownViewWidget.H" />
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +149,7 @@
     <ClCompile Include="..\Utilities\ShaderTools.cpp" />
     <ClCompile Include="..\Utilities\Texture.cpp" />
     <ClCompile Include="Behavior.cpp" />
+    <ClCompile Include="Cabin.cpp" />
     <ClCompile Include="DrawingState.cpp" />
     <ClCompile Include="DrawUtils.cpp" />
     <ClCompile Include="Examples\Cars.cpp" />
@@ -158,6 +164,9 @@
     <ClCompile Include="MMatrix.cpp" />
     <ClCompile Include="Roads\Drive.cpp" />
     <ClCompile Include="Roads\Roads.cpp" />
+    <ClCompile Include="Skycube.cpp" />
+    <ClCompile Include="Snow.cpp" />
+    <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="TownViewWidget.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
