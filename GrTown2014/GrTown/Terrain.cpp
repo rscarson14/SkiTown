@@ -105,6 +105,8 @@ void RenderHeightMap(BYTE pHeightMap[], DrawingState* drst)
 {
 	glewInit();
 	glPushAttrib(GL_ALL_ATTRIB_BITS);
+	glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
+	glDisable(GL_CULL_FACE);
 	glEnable(GL_TEXTURE_2D);
 	if (terrainShader == 0 && !triedTerrainShader){
 		triedTerrainShader = true;
@@ -230,9 +232,6 @@ void RenderHeightMap(BYTE pHeightMap[], DrawingState* drst)
 	}
 
 	glUseProgram(terrainShader);
-	glPushAttrib(GL_ALL_ATTRIB_BITS);
-	glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
-	glDisable(GL_CULL_FACE);
 
 	mat4 pMat = mat4(0.0f);
 	mat4 vMat = mat4(0.0f);
@@ -290,7 +289,6 @@ void RenderHeightMap(BYTE pHeightMap[], DrawingState* drst)
 
 	glUseProgram(0);
 
-	glPopAttrib();
 	glPopAttrib();
 	glPopClientAttrib();
 }

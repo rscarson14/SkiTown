@@ -30,6 +30,10 @@ GLuint triedWallShader = false;
 void Cabin::draw(DrawingState *drst){
 	glewInit();
 
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
+	glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
+	glDisable(GL_CULL_FACE);
+
 	if (wallShader == 0 && !triedWallShader){
 		triedWallShader = true;
 		char* error;
@@ -150,9 +154,6 @@ void Cabin::draw(DrawingState *drst){
 	};
 
 	glUseProgram(wallShader);
-	glPushAttrib(GL_ALL_ATTRIB_BITS);
-	glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
-	glDisable(GL_CULL_FACE);
 	
 	glPushMatrix();
 	glTranslated(0, 10, 0);

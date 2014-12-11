@@ -25,7 +25,13 @@ bool triedSkyShader = false;
 void Skycube::draw(DrawingState* st, GrObject *camera){
 	
 	glewInit();
+
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
+	glPushClientAttrib(GL_ALL_ATTRIB_BITS);
+	glDisable(GL_CULL_FACE);
+	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_TEXTURE_2D);
+
 	if (skyShader == 0 && !triedSkyShader){
 		triedSkyShader = true;
 		char* error;
@@ -117,8 +123,6 @@ void Skycube::draw(DrawingState* st, GrObject *camera){
 	printf("counter %f\n", counter);
 
 	glUseProgram(skyShader);
-	glDisable(GL_CULL_FACE);
-	glDisable(GL_DEPTH_TEST);
 
 	FlyCamera* cam = (FlyCamera*)camera;
 
@@ -177,7 +181,9 @@ void Skycube::draw(DrawingState* st, GrObject *camera){
 
 	glPopMatrix();
 	glUseProgram(0);
-	glEnable(GL_DEPTH_TEST);
+
+	glPopAttrib();
+	glPopClientAttrib();
 }
 
 void Skycube::drawAfter(DrawingState* st){
