@@ -37,7 +37,7 @@ void Cabin::draw(DrawingState *drst){
 	if (wallShader == 0 && !triedWallShader){
 		triedWallShader = true;
 		char* error;
-		if (!(wallShader = loadShader("Cabin.vert", "Cabin.frag", error))){
+		if (!(wallShader = loadShader("Cabin1.vert", "Cabin1.frag", error))){
 			std::string s = "Can't Load Cabin wall Shader:";
 			s += error;
 			fl_alert(s.c_str());
@@ -64,21 +64,21 @@ void Cabin::draw(DrawingState *drst){
 		vec3(-10.0f, 10.0f, 10.0f),
 		vec3(10.0f, -10.0f, 10.0f),
 
-		vec3(-10.0f, 10.0f, -10.0f), // -Z
-		vec3(-10.0f, -10.0f, -10.0f),
+		vec3(10.0f, 10.0f, -10.0f),
 		vec3(10.0f, -10.0f, -10.0f),
+		vec3(-10.0f, -10.0f, -10.0f), // -Z
 
-		vec3(10.0f, 10.0f, -10.0f), // -Z
-		vec3(-10.0f, 10.0f, -10.0f),
+		vec3(-10.0f, 10.0f, -10.0f), // -Z
+		vec3(10.0f, 10.0f, -10.0f),
+		vec3(-10.0f, -10.0f, -10.0f),
+
+		vec3(10.0f, 10.0f, 10.0f), // +X
+		vec3(10.0f, -10.0f, 10.0f),
 		vec3(10.0f, -10.0f, -10.0f),
 
 		vec3(10.0f, 10.0f, -10.0f), // +X
+		vec3(10.0f, 10.0f, 10.0f),
 		vec3(10.0f, -10.0f, -10.0f),
-		vec3(10.0f, -10.0f, 10.0f),
-
-		vec3(10.0f, 10.0f, 10.0f), // +X
-		vec3(10.0f, 10.0f, -10.0f),
-		vec3(10.0f, -10.0f, 10.0f),
 
 		vec3(-10.0f, 10.0f, -10.0f), // -X
 		vec3(-10.0f, -10.0f, -10.0f),
@@ -87,7 +87,6 @@ void Cabin::draw(DrawingState *drst){
 		vec3(-10.0f, 10.0f, 10.0f), // -X
 		vec3(-10.0f, 10.0f, -10.0f),
 		vec3(-10.0f, -10.0f, 10.0f),
-
 	};
 
 
@@ -104,15 +103,13 @@ void Cabin::draw(DrawingState *drst){
 		p2 = g_vertex_buffer_data[j + 1];
 		p3 = g_vertex_buffer_data[j + 2];
 
-		vec3 e1 = normalize(p2 - p1);
-		vec3 e2 = normalize(p2 - p3);
+		vec3 e1 = normalize(p1 - p2);
+		vec3 e2 = normalize(p3 - p2);
 
 		vec3 norm = normalize(cross(e1, e2));
 		
 		for (int k = 0; k < 6; k++){
-			if (i % 2 == 0){
-				g_normal_buffer_data[i * 6 + k] = vec3(norm);
-			}
+			g_normal_buffer_data[i * 6 + k] = vec3(norm);
 		}
 
 		j += 6;
@@ -162,14 +159,26 @@ void Cabin::draw(DrawingState *drst){
 	mat4 pMat = mat4(0.0f);
 	mat4 vMat = mat4(0.0f);
 
+	Matrix camMat;
+	drst->camera->getCamera(camMat);
+	mat4 cMat = mat4(camMat[0][0]);
+
 	glGetFloatv(GL_PROJECTION_MATRIX, &pMat[0][0]);
 	glGetFloatv(GL_MODELVIEW_MATRIX, &vMat[0][0]);
 
+	mat4 mMat = mat4(this->transform[0][0]);
+
 	mat4 MVP = pMat * vMat;
+
+	vec4 sPos = drst->sun.lookFrom;
 	
 	// Get a handle for our "MVP" uniform.
 	// Only at initialisation time.
 	GLuint MatrixID = glGetUniformLocation(wallShader, "MVP");
+	GLuint MVID = glGetUniformLocation(wallShader, "MV");
+	GLuint CamID = glGetUniformLocation(wallShader, "V");
+	GLuint PID = glGetUniformLocation(wallShader, "P");
+	GLuint SID = glGetUniformLocation(wallShader, "sunLookFrom");
 	GLuint TextureID = glGetUniformLocation(wallShader, "tex");
 	GLuint NormalID = glGetUniformLocation(wallShader, "normals");
 	GLuint SunID1 = glGetUniformLocation(wallShader, "sun.lookFrom");
@@ -180,6 +189,10 @@ void Cabin::draw(DrawingState *drst){
 	// in the "MVP" uniform
 	// For each model you render, since the MVP will be different (at least the M part)
 	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
+	glUniformMatrix4fv(MVID, 1, GL_FALSE, &vMat[0][0]);
+	glUniformMatrix4fv(CamID, 1, GL_FALSE, &cMat[0][0]);
+	glUniformMatrix4fv(PID, 1, GL_FALSE, &pMat[0][0]);
+	glUniform4fv(SID, 1, &sPos[0]);
 	glUniform1i(TextureID, 0);
 	glUniform1i(NormalID, 1);
 	glUniform4fv(SunID1, 1, &(drst->sun.lookFrom[0]));
@@ -249,8 +262,8 @@ void Cabin::draw(DrawingState *drst){
 		 p2 = g_roof_buffer_data[j + 1];
 		 p3 = g_roof_buffer_data[j + 2];
 
-		 vec3 e1 = normalize(p2 - p1);
-		 vec3 e2 = normalize(p2 - p3);
+		 vec3 e1 = normalize(p1 - p2);
+		 vec3 e2 = normalize(p3 - p2);
 
 		 vec3 norm = normalize(cross(e2, e1));
 

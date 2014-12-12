@@ -71,7 +71,8 @@ void setupLights(DrawingState* dr)
 	float angle = (((float)(dr->timeOfDay-5)) / 7.f) * (3.14159f/2.f);
 	pos[0] = (float) cos(angle);
 	pos[1] = (float) sin(angle);
-	dr->sun.lookFrom = vec4(pos[0], pos[1], 0.0, 1.0f);
+	//printf("pos1, pos2 : %f, %f\n", pos[0], pos[1]);
+	dr->sun.lookFrom = vec4(pos[0], pos[1], 0.0, 0.0f);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 	glEnable(GL_COLOR_MATERIAL);

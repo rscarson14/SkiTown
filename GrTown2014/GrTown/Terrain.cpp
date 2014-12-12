@@ -176,10 +176,10 @@ void RenderHeightMap(BYTE pHeightMap[], DrawingState* drst)
 			vec3 p2 = vec3(x2, y2, z2);
 			vec3 p3 = vec3(x3, y3, z3);
 
-			vec3 e1 = p2 - p1;
-			vec3 e2 = p2 - p3;
+			vec3 e1 = p1 - p2;
+			vec3 e2 = p3 - p2;
 
-			vec3 norm = normalize(cross(e2, e1));
+			vec3 norm = normalize(cross(e1, e2));
 
 			// Set the color value of the current vertice
 			//SetVertexColor(pHeightMap, x, z);

@@ -9,6 +9,9 @@ struct Directional{
 in vec2 uv;
 in vec4 normal;
 in vec4 eye;
+in vec4 coord;
+in mat3 mMat;
+in mat3 vMat;
 
 out vec4 frag_colour;
 
@@ -21,16 +24,19 @@ void main ()
   vec4 text_color = vec4(texture(tex, uv).rgba);
   vec3 normal_vals = vec3(texture(normals, uv).rgb);
   
-  vec3 l_dir = vec3(sun.lookFrom) - vec3(sun.lookTowards); 
-  
   vec3 n = normalize(vec3(normal.x*normal_vals.x, normal.y*normal_vals.y, normal.z*normal_vals.z));
+
+	vec3 l_dir = normalize(-vec3(mat3(vMat * mMat) * vec3(sun.lookFrom))); 
+	//vec3 l_dir = vec3(sun.lookFrom) - vec3(
+  
+  //vec3 n = normalize(vec3(normal.x*normal_vals.x, normal.y*normal_vals.y, normal.z*normal_vals.z));
   vec3 e = normalize(eye.xyz);
   vec4 spec = vec4(vec3(0.0), 1.0);
   float intensity = max(dot(n, l_dir), 0.0) + 0.25;
   if(intensity > 0.0){
 	vec3 h = normalize(l_dir + e);
 	
-	//float intSpec = max(dot(h,n), 0.0);
+	float intSpec = max(dot(h,n), 0.0);
 	
   }
   if(intensity < 0.35){

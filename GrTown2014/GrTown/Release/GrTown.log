@@ -1,17 +1,17 @@
-﻿Build started 12/11/2014 11:04:03 AM.
+﻿Build started 12/12/2014 10:06:53 AM.
      1>Project "C:\Users\Robert\Documents\Code\cs559\Graphics_Town\SkiTown\GrTown2014\GrTown\GrTown.vcxproj" on node 2 (Build target(s)).
      1>PreBuildEvent:
          C:/"Program Files (x86)/FLTK 1.3.2"/bin/fluid.exe -c GraphicsTownUI.fl
          :VCEnd
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\glm" /I"C:\Program Files (x86)\FLTK 1.3.2\include" /I"C:\Program Files\glew\include" /I.. /Zi /nologo /W3 /WX- /O2 /Oy- /D WIN32 /D NDEBUG /D _CONSOLE /D _CRT_SECURE_NO_WARNINGS /D _VC80_UPGRADE=0x0710 /D _MBCS /Gm- /EHsc /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Cabin.cpp GraphicsTownUI.cxx Main.cpp Skycube.cpp TownViewWidget.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\glm" /I"C:\Program Files (x86)\FLTK 1.3.2\include" /I"C:\Program Files\glew\include" /I.. /Zi /nologo /W3 /WX- /O2 /Oy- /D WIN32 /D NDEBUG /D _CONSOLE /D _CRT_SECURE_NO_WARNINGS /D _VC80_UPGRADE=0x0710 /D _MBCS /Gm- /EHsc /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Cabin.cpp GraphicsTownUI.cxx Main.cpp TownViewWidget.cpp
          Cabin.cpp
          GraphicsTownUI.cxx
          Main.cpp
      1>Main.cpp(120): warning C4305: 'argument' : truncation from 'double' to 'float'
      1>Main.cpp(126): warning C4305: 'argument' : truncation from 'double' to 'float'
      1>Main.cpp(127): warning C4305: 'argument' : truncation from 'double' to 'float'
-         Skycube.cpp
+     1>Main.cpp(142): warning C4305: 'argument' : truncation from 'double' to 'float'
          TownViewWidget.cpp
          Generating Code...
        Link:
@@ -184,4 +184,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:03.78
+Time Elapsed 00:00:06.23

@@ -139,7 +139,7 @@ int main(int /*argc*/, char** /*argv*/)
 	c2->laX = 5; c2->laY = 10; c2->laZ = -30;
 	c2->lfX = 20; c2->lfY = 20; c2->lfZ = 40;
 	add(c2, 200, 0, 100, pi / 2.0f);
-	//new Spin(c1, 0.001);
+	new Spin(c1, 0.001);
 
 	
 	//add(new Tree(0, 0, 0, 0), 0, 0, 0, -PI/2);

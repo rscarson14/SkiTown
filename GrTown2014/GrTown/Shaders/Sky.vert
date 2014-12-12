@@ -10,5 +10,6 @@ uniform mat4 MVP;
 void main () 
 {
   uv = vertex_uv;
+  
   gl_Position = vec4(vertex_position, 1.0);
 }

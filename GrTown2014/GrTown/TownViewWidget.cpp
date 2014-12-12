@@ -68,8 +68,6 @@ void TownViewWidget::draw()
 {
   // figure out how to draw
 
-
-
   DrawingState drst;
   getStateFromUI(&drst);
   glEnable(GL_TEXTURE_2D);

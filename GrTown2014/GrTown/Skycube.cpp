@@ -13,6 +13,7 @@
 using namespace glm;
 
 Texture* sky_tex;
+Texture* sky_tex_night;
 
 Skycube::Skycube(){
 
@@ -43,6 +44,7 @@ void Skycube::draw(DrawingState* st, GrObject *camera){
 	}
 	
 	if (sky_tex == NULL){ sky_tex = fetchTexture("sky-ss018.png", true, true); }
+	if (sky_tex_night == NULL) { sky_tex_night = fetchTexture("sky-ss018-night.png", true, true); }
 
 	// Cube vertices. Each set makes a triangle for a face. UV coords are mapped appropriately
 	GLfloat g_vertex_buffer_data[] = {
@@ -120,7 +122,6 @@ void Skycube::draw(DrawingState* st, GrObject *camera){
 	if (counter > 1.0f){
 		counter = 0.0f;
 	}
-	printf("counter %f\n", counter);
 
 	glUseProgram(skyShader);
 
@@ -156,9 +157,14 @@ void Skycube::draw(DrawingState* st, GrObject *camera){
 	glUniform1i(TextureID, 0);
 	glUniform1f(CountID, counter);
 
-
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, sky_tex->texName);
+	if (st->timeOfDay < 5 || st->timeOfDay > 19){
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, sky_tex_night->texName);
+	}
+	else{
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, sky_tex->texName);
+	}
 
 	GLuint buffers[2]; // 0 = vertex, 1 = uv
 

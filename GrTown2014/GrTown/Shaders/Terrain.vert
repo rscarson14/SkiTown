@@ -6,18 +6,20 @@ layout(location = 2) in vec2 vertex_uv;
 
 out vec2 uv;
 out vec3 normal;
-out vec3 eye;
+out mat3 mMat;
+out mat3 vMat;
 
 uniform mat4 MVP;
 uniform mat4 MV;
+uniform mat4 V;
 
 void main () 
 {
   uv = vertex_uv;
   gl_Position = MVP * vec4(vertex_position, 1.0);
   
-  mat3 nMVP = mat3(MVP[0], MVP[1], MVP[2]);
-  mat3 it = inverse(transpose(nMVP)); // construct normal matrix
-  normal = it * vec3(vertex_normal);
-  eye = -vec3(MVP * vec4(vertex_position, 1.0));
+  mat3 nM = mMat;
+  mat3 it = transpose(inverse(mat3(MV))); // construct normal matrix
+  normal = vec3(it * vec3(vertex_normal));
+
 }
