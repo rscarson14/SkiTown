@@ -162,11 +162,12 @@ void Cabin::draw(DrawingState *drst){
 	Matrix camMat;
 	drst->camera->getCamera(camMat);
 	mat4 cMat = mat4(camMat[0][0]);
+	mat4 invcMat = inverse(cMat);
 
 	glGetFloatv(GL_PROJECTION_MATRIX, &pMat[0][0]);
 	glGetFloatv(GL_MODELVIEW_MATRIX, &vMat[0][0]);
 
-	mat4 mMat = mat4(this->transform[0][0]);
+	mat4 mMat = inverse(mat4(this->transform[0][0]));
 
 	mat4 MVP = pMat * vMat;
 

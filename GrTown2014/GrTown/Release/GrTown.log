@@ -1,4 +1,4 @@
-﻿Build started 12/12/2014 10:06:53 AM.
+﻿Build started 12/12/2014 11:17:22 AM.
      1>Project "C:\Users\Robert\Documents\Code\cs559\Graphics_Town\SkiTown\GrTown2014\GrTown\GrTown.vcxproj" on node 2 (Build target(s)).
      1>PreBuildEvent:
          C:/"Program Files (x86)/FLTK 1.3.2"/bin/fluid.exe -c GraphicsTownUI.fl
@@ -184,4 +184,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:06.23
+Time Elapsed 00:00:05.96
